@@ -43,6 +43,11 @@ public final class TableModelPeliculas extends AbstractTableModel {
         ConexionMySQL.getInstance().insertarPelicula(titulo, año, puntuacion, sinopsis);
         cargarPeliculas();
     }
+    public void borrar(String titulo) throws SQLException {
+          
+        ConexionMySQL.getInstance().borrarPelicula(titulo);
+        cargarPeliculas();
+    }
 
     public Pelicula getValueAt(int rowIndex) {
         return list.get(rowIndex);

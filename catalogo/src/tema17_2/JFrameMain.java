@@ -21,30 +21,30 @@ public class JFrameMain extends javax.swing.JFrame {
     public JFrameMain() {
 
         /**
-         *  COMENTAR 
+         * COMENTAR
          */
         try {
-            ConexionMySQL.crearConexion("localhost", "3308", "root", "", "catalago");
+            ConexionMySQL.crearConexion("localhost", "3306", "root", "", "coleccion");
             ConexionMySQL.getInstance().conectar();
             tableModel = new TableModelPeliculas();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(JFrameMain.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-         /**
-         *  COMENTAR 
+        /**
+         * COMENTAR
          */
         initComponents();
 
-         /**
-         *  COMENTAR 
+        /**
+         * COMENTAR
          */
         ImageIcon icon = new ImageIcon("src/images/icons/film.png");
         setIconImage(icon.getImage());
 
         /**
-         *  COMENTAR 
+         * COMENTAR
          */
         jpumOperacionesTabla.addPopupMenuListener(new PopupMenuListener() {
 
@@ -110,6 +110,11 @@ public class JFrameMain extends javax.swing.JFrame {
 
         jmiBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/remove.png"))); // NOI18N
         jmiBorrar.setText("Borrar");
+        jmiBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiBorrarActionPerformed(evt);
+            }
+        });
         jpumOperacionesTabla.add(jmiBorrar);
 
         jmiEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/edit.png"))); // NOI18N
@@ -250,7 +255,7 @@ public class JFrameMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jbClearActionPerformed
 
     /**
-     * COMENTAR 
+     * COMENTAR
      */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
@@ -259,6 +264,19 @@ public class JFrameMain extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void jmiBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBorrarActionPerformed
+        Pelicula p = tableModel.getValueAt(jtPeliculas.getSelectedRow());
+
+        try {
+
+            tableModel.borrar(p.getTitulo());
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JFrameMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jmiBorrarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -199,4 +199,11 @@ public class ConexionMySQL {
 
         return fila;
     }
+    public int borrarPelicula(String titulo) throws SQLException {
+        Statement stmt = connection.createStatement();
+        String consulta = "DELETE FROM peliculas WHERE titulo = '"+titulo+"'"+";";
+        int fila = stmt.executeUpdate(consulta);
+
+        return fila;
+    }
 }
